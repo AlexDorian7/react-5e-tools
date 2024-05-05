@@ -1,5 +1,16 @@
 
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+
+import { readFileSync } from 'node:original-fs';
+import { join } from 'node:path';
+
+async function handleFileOpen(window: Electron.BrowserWindow) {
+    const { canceled, filePaths } = await dialog.showOpenDialog(window)
+    if (!canceled) {
+        const path: string = filePaths[0];
+        return readFileSync(path, 'utf8');
+    }
+}
 
 function createWindow() {
     // Create the browser window.
@@ -7,7 +18,8 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            preload: join(__dirname, 'preload.js'),
         }
     })
 
@@ -17,11 +29,18 @@ function createWindow() {
     // Open the DevTools.
     win.webContents.openDevTools()
 
-    ipcMain.on('set-title', (event, title) => {
+    ipcMain.on('window:set_title', (event, title) => {
         const webContents = event.sender;
         const win = BrowserWindow.fromWebContents(webContents);
         if (win === null) return;
         win.setTitle(title);
+    })
+
+    ipcMain.handle('dialog:openFile', (event) => {
+        const webContents = event.sender;
+        const win = BrowserWindow.fromWebContents(webContents);
+        if (win === null) return;
+        return handleFileOpen(win);
     })
 }
 

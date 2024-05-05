@@ -3,6 +3,13 @@ src/*.js
 src/*.jsx
 electron/*.js
 
+# Build Output
+build
+build/*
+
+# App Settings
+settings/*
+
 # Logs
 logs
 *.log
