@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { getPalette } from "../palettes/palettes";
 
-export const palettes = {
-    DEFAULT: 0,
+function StylePalette({ css }) {
+    return (
+        <style>{css}</style>
+    );
+}
 
-
-};
-
-export default function PalleteSystem() {
-    const [palette, setPalette] = useState(0);
+export default function PaletteSystem({ palette }) {
+    return (
+        <StylePalette css={getPalette(palette).css} />
+    );
 }
