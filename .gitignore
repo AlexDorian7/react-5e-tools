@@ -1,3 +1,8 @@
+# Compiled Type Script
+src/*.js
+src/*.jsx
+electron/*.js
+
 # Logs
 logs
 *.log

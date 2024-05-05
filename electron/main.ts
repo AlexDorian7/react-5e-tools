@@ -1,5 +1,5 @@
 
-const { app, BrowserWindow } = require('electron')
+import { app, BrowserWindow, ipcMain } from 'electron';
 
 function createWindow() {
     // Create the browser window.
@@ -16,6 +16,13 @@ function createWindow() {
 
     // Open the DevTools.
     win.webContents.openDevTools()
+
+    ipcMain.on('set-title', (event, title) => {
+        const webContents = event.sender;
+        const win = BrowserWindow.fromWebContents(webContents);
+        if (win === null) return;
+        win.setTitle(title);
+    })
 }
 
 // This method will be called when Electron has finished

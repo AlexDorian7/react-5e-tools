@@ -1,19 +1,21 @@
-export const Palettes = [];
-
-export function getPalette(index) {
-    const pal = Palettes[index];
-    return pal === undefined ? Palettes[0] : pal;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getPalette = exports.Palettes = void 0;
+exports.Palettes = [];
+function getPalette(index) {
+    const pal = exports.Palettes[index];
+    return pal === undefined ? exports.Palettes[0] : pal;
 }
-
-export default class Palette {
+exports.getPalette = getPalette;
+class Palette {
     constructor(name, label, css) {
         this.css = css;
         this.name = name;
         this.label = label;
-        Palettes.push(this);
+        exports.Palettes.push(this);
     }
 }
-
+exports.default = Palette;
 new Palette("DEFAULT", "Default", `:root {
         --color-red: #FF0000;
         --color-orange: #FF7F00;
@@ -37,7 +39,6 @@ new Palette("DEFAULT", "Default", `:root {
         --color-success: #3FBF3F;
         --color-danger: #BF3F3F;
     }`);
-
 new Palette("INVERTED", "Inverted", `:root {
         --color-red: #00FFFF;
         --color-orange: #007FFF;

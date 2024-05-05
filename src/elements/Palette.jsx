@@ -1,13 +1,10 @@
-import { getPalette } from "../palettes/palettes";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const palettes_1 = require("../palettes/palettes");
 function StylePalette({ css }) {
-    return (
-        <style>{css}</style>
-    );
+    return (<style>{css}</style>);
 }
-
-export default function PaletteSystem({ palette }) {
-    return (
-        <StylePalette css={getPalette(palette).css} />
-    );
+function PaletteSystem({ palette }) {
+    return (<StylePalette css={(0, palettes_1.getPalette)(palette).css}/>);
 }
+exports.default = PaletteSystem;
