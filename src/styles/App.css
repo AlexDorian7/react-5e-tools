@@ -1,0 +1,126 @@
+:root {
+    --color-red: #FF0000;
+    --color-orange: #FF7F00;
+    --color-yellow: #FFFF00;
+    --color-lime: #7FFF00;
+    --color-green: #00FF00;
+    --color-blgrn: #00FF7F;
+    --color-aqua: #00FFFF;
+    --color-blue: #007FFF;
+    --color-indigo: #0000FF;
+    --color-violet: #7F00FF;
+    --color-magenta: #FF00FF;
+    --color-pink: #ff007f;
+    --color-black: #000000;
+    --color-dark: #3F3F3F;
+    --color-grey: #7F7F7F;
+    --color-light: #BFBFBF;
+    --color-white: #FFFFFF;
+    --color-primary: #BF7FFF;
+    --color-secondary: #7F7FFF;
+    --color-success: #3FBF3F;
+    --color-danger: #BF3F3F;
+    --color-darker: #0000003F;
+    --color-lighter: #FFFFFF3F;
+}
+
+.App {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-grey);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.side-bar {
+    order: 0;
+    background-color: var(--color-dark);
+    border-top-right-radius: 1vmin;
+    border-bottom-right-radius: 1vmin;
+    width: 15%;
+}
+
+.main-content {
+    order: 1;
+    background-color: var(--color-grey);
+    width: 85%;
+    padding: 1vmin;
+}
+
+.palette-spinner-box {
+    margin: 1vmin;
+    padding: 0;
+    border: 0;
+    width: 20vmin;
+    overflow: hidden;
+    position: absolute;
+    right: 1vmin;
+    top: 1vmin;
+}
+
+.palette-spinner-box * {
+    margin: 0;
+    padding: 4px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.palette-spinner-box select {
+    color: var(--color-black);
+    background-color: var(--color-light);
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border: 2px solid var(--color-black);
+    border-right: 1px solid var(--color-white);
+    border-top-left-radius: 1vmin;
+    border-bottom-left-radius: 1vmin;
+    width: 80%;
+    position: relative;
+    top: -1px;
+}
+
+.palette-spinner-box button {
+    background-color: var(--color-light);
+    border: 2px solid var(--color-black);
+    border-left: 0;
+    border-top-right-radius: 1vmin;
+    border-bottom-right-radius: 1vmin;
+    width: 20%;
+    position: relative;
+    top: 0px;
+}
+
+.palette-spinner-box button:hover {
+    background-color: var(--color-grey);
+}
+
+.palette-spinner-box button:active {
+    background-color: var(--color-dark);
+}
+
+button.link {
+    border: 0;
+    color: var(--color-secondary);
+    background-color: #00000000;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+button.link:hover {
+    color: var(--color-primary);
+}
+
+button.link.selected {
+    color: var(--color-success);
+}
+
+.sidebar-list {
+    list-style-type: none;
+}

@@ -39,6 +39,8 @@ new Palette("DEFAULT", "Default", `:root {
         --color-secondary: #7F7FFF;
         --color-success: #3FBF3F;
         --color-danger: #BF3F3F;
+        --color-darker: #0000003F;
+        --color-lighter: #FFFFFF3F;
     }`);
 
 new Palette("INVERTED", "Inverted", `:root {
@@ -63,4 +65,6 @@ new Palette("INVERTED", "Inverted", `:root {
         --color-secondary: #7F7F00;
         --color-success: #BF3FBF;
         --color-danger: #3FBFBF;
+        --color-darker: #FFFFFF3F;
+        --color-lighter: #0000003F;
     }`);
