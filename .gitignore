@@ -1,7 +1,13 @@
 # Compiled Type Script
-src/*.js
-src/*.jsx
-src/electron/*.js
+*.js
+*.jsx
+# src/*.js
+# src/*.jsx
+# src/elements/*.js
+# src/elements/*.jsx
+# src/palettes/*.js
+# src/palettes/*.jsx
+# src/electron/*.js
 
 # Build Output
 build
