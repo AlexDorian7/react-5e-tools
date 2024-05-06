@@ -3,6 +3,7 @@ import TestTool from "../elements/tools/TestTool";
 import WelcomeTool from "../elements/tools/WelcomeTool";
 import React from "react";
 import NameGeneratorTool from "../elements/tools/NameGenratorTool";
+import DiceTool from "../elements/tools/DiceTool";
 
 interface SidebarInterface { [key: string]: { [key: string]: string } }
 
@@ -11,7 +12,8 @@ interface ToolsInterface { [key: string]: ReactElement }
 const sidebar: SidebarInterface = {
     General: {
         Welcome: "WelcomeTool",
-        ["Name Generator"]: "NameGeneratorTool"
+        "Name Generator": "NameGeneratorTool",
+        "Dice Roller": "DiceTool"
     },
     Player: {
         TestTool: "TestTool"
@@ -21,7 +23,8 @@ const sidebar: SidebarInterface = {
 const ToolsRegistry: ToolsInterface = {
     WelcomeTool: (<WelcomeTool />),
     TestTool: (<TestTool />),
-    NameGeneratorTool: (<NameGeneratorTool />)
+    NameGeneratorTool: (<NameGeneratorTool />),
+    DiceTool: (<DiceTool />)
 }
 
 export default function Tools({ selected, set }: { selected: string, set: Function }) {

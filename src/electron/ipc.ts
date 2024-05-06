@@ -27,4 +27,8 @@ export function setUpIpc() {
     ipcMain.on('program:setSetting', (_, name: string, value: any) => {
         getSettingsManager().set(name, value);
     });
+
+    ipcMain.handle('program:getDataFile', (_, path) => {
+        return utils.readDataFile(path);
+    });
 }
