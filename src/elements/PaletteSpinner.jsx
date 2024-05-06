@@ -6,6 +6,7 @@ function PaletteSpinner({ set }) {
             <select id="palette-spinner">{palettes_1.Palettes.map((palette, index) => (<option value={index}>{palette.label}</option>))}</select>
             <button onClick={() => {
             let element = document.getElementById("palette-spinner");
+            window.electronAPI.setSetting("palette", element.value);
             set(element.value);
         }}>&#x2705;</button>
         </div>);

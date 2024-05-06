@@ -10,6 +10,7 @@ export default function PaletteSpinner({ set }: { set: Function }) {
             }</select>
             <button onClick={() => {
                 let element: HTMLSelectElement = (document.getElementById("palette-spinner") as HTMLSelectElement)
+                window.electronAPI.setSetting("palette", element.value);
                 set(element.value);
             }}>&#x2705;</button>
         </div>

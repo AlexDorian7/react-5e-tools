@@ -1,11 +1,10 @@
-
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow } from 'electron';
 
 import * as utils from './utils'
 
 import { join } from 'node:path';
 
-import { getSettingsManager } from './settings';
+import { setUpIpc } from './ipc';
 
 function createWindow() {
     // Create the browser window.
@@ -24,24 +23,7 @@ function createWindow() {
     // Open the DevTools.
     win.webContents.openDevTools();
 
-    ipcMain.on('window:set_title', (event, title) => {
-        const webContents = event.sender;
-        const win = BrowserWindow.fromWebContents(webContents);
-        if (win === null) return;
-        win.setTitle(title);
-    });
-
-    ipcMain.handle('dialog:openFile', (event) => {
-        const webContents = event.sender;
-        const win = BrowserWindow.fromWebContents(webContents);
-        if (win === null) return;
-        return utils.handleFileOpen(win);
-    });
-
-
-    ipcMain.handle('program:getSettings', (event) => {
-        return getSettingsManager().settings;
-    });
+    setUpIpc();
 }
 
 // This method will be called when Electron has finished

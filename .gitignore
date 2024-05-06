@@ -1,7 +1,7 @@
 # Compiled Type Script
 src/*.js
 src/*.jsx
-electron/*.js
+src/electron/*.js
 
 # Build Output
 build

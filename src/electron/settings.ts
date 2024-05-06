@@ -1,11 +1,14 @@
-const SETTINGS_PATH = "../settings/settings.json";
+const SETTINGS_PATH = "../../settings/settings.json";
 
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 
-export type Settings = {
-    palette: number;
+export interface StringKeyed {
+    [key: string]: any
+}
 
+export interface Settings extends StringKeyed {
+    palette: 0
 }
 
 function defaultSettings(): Settings {
@@ -16,7 +19,12 @@ function defaultSettings(): Settings {
 }
 
 function addNewDefaults(old: Settings): Settings {
-    old.palette = old.palette === undefined ? 0 : old.palette;
+    for (const prop in defaultSettings()) {
+        if (Object.prototype.hasOwnProperty.call(defaultSettings(), prop)) {
+            const element = defaultSettings()[prop];
+            old[prop] = old[prop] === undefined ? element : old[prop];
+        }
+    }
 
     return old;
 }
@@ -50,6 +58,11 @@ class SettingsManager {
         return new Promise((reslove, reject) => {
             fs.writeFile(this.path, data, () => { reslove(true); });
         });
+    }
+
+    set(name: string, value: any) {
+        this.settings[name] = value
+        this.save();
     }
 }
 

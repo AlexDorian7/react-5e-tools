@@ -8,6 +8,9 @@ import PaletteSpinner from './elements/PaletteSpinner';
 
 function App() {
     const [palette, setPalette] = useState(0);
+    window.electronAPI.getSettings().then((settings) => {
+        setPalette(settings.palette);
+    });
     return (
         <>
             <PaletteSystem palette={palette} />
