@@ -103,6 +103,7 @@
 }
 
 button.link {
+    text-align: left;
     border: 0;
     color: var(--color-secondary);
     background-color: #00000000;
@@ -123,4 +124,5 @@ button.link.selected {
 
 .sidebar-list {
     list-style-type: none;
+    text-align: left;
 }

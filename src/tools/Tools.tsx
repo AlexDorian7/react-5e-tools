@@ -1,6 +1,8 @@
 import { ReactElement } from "react";
 import TestTool from "../elements/tools/TestTool";
 import WelcomeTool from "../elements/tools/WelcomeTool";
+import React from "react";
+import NameGeneratorTool from "../elements/tools/NameGenratorTool";
 
 interface SidebarInterface { [key: string]: { [key: string]: string } }
 
@@ -8,7 +10,8 @@ interface ToolsInterface { [key: string]: ReactElement }
 
 const sidebar: SidebarInterface = {
     General: {
-        Welcome: "WelcomeTool"
+        Welcome: "WelcomeTool",
+        ["Name Generator"]: "NameGeneratorTool"
     },
     Player: {
         TestTool: "TestTool"
@@ -17,7 +20,8 @@ const sidebar: SidebarInterface = {
 
 const ToolsRegistry: ToolsInterface = {
     WelcomeTool: (<WelcomeTool />),
-    TestTool: (<TestTool />)
+    TestTool: (<TestTool />),
+    NameGeneratorTool: (<NameGeneratorTool />)
 }
 
 export default function Tools({ selected, set }: { selected: string, set: Function }) {
@@ -37,7 +41,11 @@ export default function Tools({ selected, set }: { selected: string, set: Functi
                     ))}
                 </ul>
             </div>
-            {ToolsRegistry[selected]}
+            <React.StrictMode>
+                <div className="main-content">
+                    {ToolsRegistry[selected]}
+                </div>
+            </React.StrictMode>
         </>
     )
 }
