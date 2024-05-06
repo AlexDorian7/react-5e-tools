@@ -114,9 +114,15 @@ export default function NameGeneratorTool() {
             </select>
             <br />
             <button onClick={generate}>Generate</button>
-            <br /><br />
-            <label htmlFor="generated-name">Generated name: </label>
-            <input type="text" name="generated-name" value={name}></input>
+            <p style={{ fontSize: "1.5rem" }}>
+                Generated Name: <input type="text" value={name} />
+                <br />
+                Dwarvish Script: <code style={{ "fontFamily": "dwarvish" }}>{name}</code>
+                <br />
+                Elvish Script: <code style={{ "fontFamily": "elvish" }}>{name}</code>
+                <br />
+                Draconic Script: <code style={{ "fontFamily": "draconic" }}>{name}</code>
+            </p>
         </>
     );
 }

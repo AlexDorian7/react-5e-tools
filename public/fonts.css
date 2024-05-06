@@ -1,0 +1,71 @@
+@font-face {
+    font-family: draconic;
+    src: url(fonts/Iokharic.otf);
+}
+
+@font-face {
+    font-family: draconic;
+    src: url(fonts/Iokharic_Bold.otf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: draconic;
+    src: url(fonts/Iokharic_Italic.otf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: draconic;
+    src: url(fonts/Iokharic_Bold_Italic.otf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: dwarvish;
+    src: url(fonts/Davek.otf);
+}
+
+@font-face {
+    font-family: dwarvish;
+    src: url(fonts/Davek_Bold.otf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: dwarvish;
+    src: url(fonts/Davek_Italic.otf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: dwarvish;
+    src: url(fonts/Davek_Bold_Italic.otf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: elvish;
+    src: url(fonts/Rellanic.otf);
+}
+
+@font-face {
+    font-family: elvish;
+    src: url(fonts/Rellanic_Bold.otf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: elvish;
+    src: url(fonts/Rellanic_Italic.otf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: elvish;
+    src: url(fonts/Rellanic_Bold_Italic.otf);
+    font-weight: bold;
+    font-style: italic;
+}
