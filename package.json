@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
+    "dicebag": "^0.1.2",
     "electron": "^30.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

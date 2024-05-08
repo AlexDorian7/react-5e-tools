@@ -7,7 +7,7 @@
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: auto;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .fav-label {
@@ -17,12 +17,14 @@
     border-bottom: 0.25vmin solid var(--color-dark);
     margin: 0;
     height: 2em;
+    min-height: fit-content;
+    overflow: hidden;
 }
 
 .fav-button {
     font-weight: bold;
-    font-size: 1.5rem;
-    width: 5vmin;
+    font-size: 3vmin;
+    min-width: 5vmin;
     height: 5vmin;
     margin: 1vmin;
     padding: 0;
@@ -70,8 +72,8 @@
     border: 0.1vmin solid var(--color-black);
     border-radius: 1vmin;
     position: relative;
-    top: -3.5vmin;
-    right: -3.5vmin;
+    top: -100%;
+    right: -100%;
     z-index: 2;
 }
 

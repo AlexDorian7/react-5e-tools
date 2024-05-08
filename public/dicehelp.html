@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicebag Help</title>
+
+    <style>
+        code,
+        pre {
+            background-color: #BFBFBF;
+        }
+
+        pre {
+            border: 2px solid black;
+            border-radius: 1em;
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="dicebag">Dicebag</h1>
+    <h2 id="dice-expressions">Dice expressions</h2>
+    <h3 id="basics">Basics</h3>
+    <p>Simple expressions involving standard dice notation as used in most roleplaying
+        games are supported. You can do things like:</p>
+    <ul>
+        <li><code>XdY</code>: rolls <code>X</code> <code>Y</code>-sided dice (<code>1d6</code> is a single 6-sided die,
+            <code>2d4</code> is two
+            4-sided dice).
+        </li>
+        <li><code>dX</code> is the same as <code>1dX</code> (so you can shorten <code>1d6</code> to <code>d6</code>).
+        </li>
+        <li><code>dice +/- constant</code>: rolls the dice, adds/subtracts the constant.</li>
+        <li><code>dice +/- moreDice</code>: sums/takes the difference of the results of rolling
+            <code>dice</code> and <code>moreDice</code>.
+        </li>
+        <li><code>number K dice</code>: rolls the dice and keeps the <code>number</code> highest results. For
+            example, <code>1K2d20</code> is the &quot;rolling with advantage&quot; mechanic from 5th Edition
+            Dungeons and Dragons (roll two d20&#39;s, keep the highest).</li>
+        <li><code>number k dice</code>: like <code>K</code> but keeps the <code>number</code> lowest results.
+            <code>1k2d20</code> is
+            D&amp;D5E&#39;s &quot;disadvantage&quot; mechanic.
+        </li>
+    </ul>
+    <h3 id="full-syntax-and-semantics">Full syntax and semantics</h3>
+    <p><strong>Note:</strong> this is still an early version. Syntax and semantics will be expanded
+        in future versions. <em>Backwards incompatible changes are possible.</em></p>
+    <p>The parser recognizes the following grammar:</p>
+    <pre><code><span class="hljs-keyword">Die</span> ::= &lt;an integer&gt;
+          | <span class="hljs-string">'('</span> <span class="hljs-keyword">Die</span> <span class="hljs-string">')'</span>
+          | <span class="hljs-string">'['</span> <span class="hljs-keyword">Die</span> <span class="hljs-string">']'</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'d'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-string">'d'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">' + '</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">' - '</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">' * '</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">' / '</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'+'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'-'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'*'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'/'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-string">'-'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'E'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'e'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'K'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'k'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'A'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'a'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'T'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">'t'</span> <span class="hljs-keyword">Die</span>
+          | <span class="hljs-keyword">Die</span> <span class="hljs-string">' x '</span> <span class="hljs-keyword">Die</span></code></pre>
+    <p>Semantics are defined in terms of the <code>pool</code> function.</p>
+    <ul>
+        <li><code>N</code>, where <code>N</code> is an integer, is a die that always rolls a single value
+            equal to <code>N</code>. <code>pool</code> returns an array containing just <code>N</code>.</li>
+        <li><code>DdE</code>, where <code>D</code> and <code>E</code> are dice expressions, is a die that rolls a number
+            of
+            dice equal to the result of rolling <code>D</code>, where each die has a number of sides
+            equal to the result of rolling <code>E</code>. <code>pool</code> returns an array of <code>roll(D)</code>
+            numbers, each between 1 and <code>roll(E)</code>. <em>Note:</em> if <code>D</code> or <code>E</code>
+            evaluates
+            to a
+            negative number, the behavior is undefined.</li>
+        <li><code>dD</code> is equivalent to <code>1dD</code>.</li>
+        <li><code>D + E</code> appends the dice pool generated by <code>E</code> to the dice pool generated by
+            <code>D</code>.
+        </li>
+        <li><code>-D</code> returns the opposites of values generated by <code>D</code>.</li>
+        <li><code>D - E</code> is equivalent to <code>D + (-E)</code>.</li>
+        <li><code>D * E</code> generates a dicepool with a single value - the product of <code>roll(D)</code>
+            and <code>roll(E)</code>.</li>
+        <li><code>D / E</code> generates a dicepool with a single value - the result of integer
+            division of <code>roll(D)</code> by <code>roll(E)</code>.</li>
+        <li><code>D+E</code> is the additive bonus operation. For each die in <code>D</code>&#39;s pool, the die is
+            rolled and <code>roll(E)</code> is added to its result.</li>
+        <li><code>D-E</code> is equivalent to <code>D+(-E)</code>.</li>
+        <li><code>D*E</code> is like <code>D+E</code> but multiplies each die in <code>D</code>&#39;s pool the result of
+            rolling <code>E</code>.</li>
+        <li><code>D/E</code> is like <code>D+E</code> but performs integer division on each die in <code>D</code>&#39;s
+            pool
+            by the result of rolling <code>E</code>.</li>
+        <li><code>DEF</code> (here <code>E</code> is the literal symbol <code>E</code>, <code>D</code> and
+            <code>F</code>
+            are dice expressions)
+            is an &quot;exploding die.&quot; First <code>D</code> is rolled. Now each die in the dice pool
+            generated by <code>F</code> is rolled repeatedly until it rolls something less than the
+            value rolled on <code>D</code>. The die&#39;s result is the sum of all those rolls. <em>Note:</em>
+            this could lead to an infinite evaluation if <code>F</code> always rolls higher than a
+            possible result of <code>D</code>.
+        </li>
+        <li><code>DeF</code> is like <code>E</code>, but explodes on values <em>less</em> than what was rolled on
+            <code>D</code>.
+        </li>
+        <li><code>DKE</code> is the &quot;keep highest&quot; mechanic. First <code>D</code> is rolled. Now each die in
+            the
+            dice pool generated by <code>E</code> is rolled, and the resulting dice pool is composed
+            of those dice that rolled highest, taking up to as many dice as the result of
+            rolling <code>D</code>.</li>
+        <li><code>DkE</code> is the &quot;keep lowest&quot; mechanic. Like <code>K</code>, but selects the lowest
+            rolling
+            dice.</li>
+        <li><code>DAE</code> might roll some of the dice in <code>E</code>&#39;s pool again. First <code>D</code> is
+            rolled.
+            Now each die in the dice pool generated by <code>E</code> is rolled repeatedly until it
+            rolls something less than the value rolled on <code>D</code>. Each such roll is treated
+            as a separate die, the results for each die are not accumulated like with
+            exploding die. <em>Note:</em> this could lead to an infinite evaluation if <code>E</code> always
+            rolls higher than a possible result of <code>D</code>.</li>
+        <li><code>DaE</code> is like <code>A</code>, but rolls again on values <em>less</em> than what was rolled on
+            <code>D</code>.
+        </li>
+        <li><code>DTE</code> applies a threshold to the dice in <code>E</code>&#39;s pool. First <code>D</code> is
+            rolled.
+            Now
+            when a die from <code>E</code>&#39;s pool rolls below the value rolled on <code>D</code>, its value is
+            0, otherwise its value is 1.</li>
+        <li><code>DtE</code> is like <code>T</code> but dice with values <em>higher</em> than what was rolled on
+            <code>D</code> are
+            counted as 0&#39;s, the rest as 1&#39;s.
+        </li>
+        <li><code>D x E</code> will repeatedly roll <code>D</code>. First <code>E</code> is rolled, then <code>D</code>
+            is
+            rolled as
+            many times as the value rolled on <code>E</code>. The pools generated by <code>D</code> are
+            concatenated to generate the new pool. <em>Note:</em> if <code>E</code> evaluates to a
+            negative number, the behavior is undefined.</li>
+        <li><code>[D]</code> collects <code>D</code>&#39;s dice pool - the generated dice pool contains a single
+            element, the result of <code>roll(D)</code>.</li>
+    </ul>
+    <p>Additionally:</p>
+    <ul>
+        <li>The binary arithmetic operations (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) are left
+            associative.</li>
+        <li>The binary arithmetic operations bind as expected (multiplication and division
+            bind stronger than addition and subtraction).</li>
+        <li>The bonus operations (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) are left associative.
+            They
+            bind
+            stronger than arithmetic operations. <code>/</code> and <code>*</code> bind stronger than <code>+</code> and
+            <code>-</code>.
+        </li>
+        <li>The die operations (<code>d</code>, <code>E</code>, <code>K</code>, etc.) are right associative
+            (<code>1d2d3</code> is
+            equivalent to <code>1d(2d3)</code>, use explicit parentheses if you need <code>(1d2)d3</code>).</li>
+        <li>Die operations bind stronger than the binary arithmetic operations
+            (<code>1d6 + 1d4</code> is equivalent to <code>(1d6) + (1d4)</code>) and the bonus operations.</li>
+        <li>The repetition operation <code>x</code> is left assosiative. It binds stronger than
+            the standard arithmetic operations, but weaker than the dice operations and
+            the bonus operations.</li>
+    </ul>
+</body>
+
+</html>

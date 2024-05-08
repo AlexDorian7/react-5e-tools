@@ -41,6 +41,7 @@
     border-top-right-radius: 1vmin;
     border-bottom-right-radius: 1vmin;
     width: 15%;
+    min-width: fit-content;
 }
 
 .main-content {
@@ -51,6 +52,7 @@
 }
 
 .palette-spinner-box {
+    min-width: fit-content;
     margin: 1vmin;
     padding: 0;
     border: 0;
