@@ -4,6 +4,7 @@ import WelcomeTool from "../elements/tools/WelcomeTool";
 import React from "react";
 import NameGeneratorTool from "../elements/tools/NameGenratorTool";
 import DiceTool from "../elements/tools/DiceTool";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface SidebarInterface { [key: string]: { [key: string]: string } }
 
@@ -44,11 +45,11 @@ export default function Tools({ selected, set }: { selected: string, set: Functi
                     ))}
                 </ul>
             </div>
-            <React.StrictMode>
+            <ErrorBoundary fallback={<div className="main-content">An Error occourred displaying this tool!</div>}>
                 <div className="main-content">
                     {ToolsRegistry[selected]}
                 </div>
-            </React.StrictMode>
+            </ErrorBoundary>
         </>
     )
 }

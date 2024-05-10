@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getSettings: () => ipcRenderer.invoke('program:getSettings') as Promise<Settings>,
     setSetting: (name: string, value: any) => ipcRenderer.send('program:setSetting', name, value),
     getDataFile: (path: string) => ipcRenderer.invoke('program:getDataFile', path) as Promise<Settings>,
+    roll: (expresion: string) => ipcRenderer.invoke('tools:roll', expresion) as Promise<Array<number>>,
 });

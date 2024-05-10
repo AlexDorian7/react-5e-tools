@@ -3,6 +3,7 @@ import { BrowserWindow, ipcMain, dialog } from 'electron';
 import * as utils from './utils'
 
 import { getSettingsManager } from './settings';
+import { rollDice } from './roller';
 
 export function setUpIpc() {
     ipcMain.on('window:set_title', (event, title) => {
@@ -30,5 +31,9 @@ export function setUpIpc() {
 
     ipcMain.handle('program:getDataFile', (_, path) => {
         return utils.readDataFile(path);
+    });
+
+    ipcMain.handle('tools:roll', (_, expression) => {
+        return rollDice(expression);
     });
 }
